@@ -8,23 +8,36 @@ var client = new ClientWebSocket();
 await client.ConnectAsync(new Uri("wss://ws.postman-echo.com/raw"), CancellationToken.None);
 Console.WriteLine("Connected!");
 
-ArraySegment<byte> byteToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes("poruka"));
-await client.SendAsync(byteToSend, WebSocketMessageType.Text, true, new CancellationToken());
+//todo: try catch
 
-var receiveTask = Task.Run(async () =>
+//todo: while client state open
+while (client.State == WebSocketState.Open)
 {
-    var buffer = new byte[1024 * 4];
-	while (true)
-	{
-		var result = await client.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-        var message = System.Text.Encoding.UTF8.GetString(buffer, 0, result.Count);
-        Console.WriteLine(message);
+    Console.WriteLine("Type message:");
+    string? message = Console.ReadLine();
 
-        if (result.MessageType == WebSocketMessageType.Close)
-		{
-			break;
-		}		
-	}
-});
+    if (!String.IsNullOrEmpty(message))
+    {
+        ArraySegment<byte> byteToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
+        await client.SendAsync(byteToSend, WebSocketMessageType.Text, true, new CancellationToken());
+    }    
 
-await receiveTask;
+    var receiveTask = Task.Run(async () =>
+    {
+        var buffer = new byte[1024 * 4];
+
+        while (true)
+        {
+            var response = await client.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+            var responseMessage = Encoding.UTF8.GetString(buffer, 0, response.Count);
+            Console.WriteLine(responseMessage);
+
+            if (response.EndOfMessage || response.MessageType == WebSocketMessageType.Close)
+            {
+                break;
+            }
+        }
+    });
+
+    await receiveTask;
+}
