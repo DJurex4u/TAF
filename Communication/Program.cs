@@ -9,8 +9,6 @@ await client.ConnectAsync(new Uri("wss://ws.postman-echo.com/raw"), Cancellation
 Console.WriteLine("Connected!");
 
 //todo: try catch
-
-//todo: while client state open
 while (client.State == WebSocketState.Open)
 {
     Console.WriteLine("Type message:");
