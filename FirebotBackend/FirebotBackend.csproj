@@ -18,4 +18,9 @@
     <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="APIs\BaseApiTests\" />
+    <Folder Include="APIs\Models\HomeTimeline\" />
+  </ItemGroup>
+
 </Project>
