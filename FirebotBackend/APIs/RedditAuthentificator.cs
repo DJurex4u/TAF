@@ -1,4 +1,5 @@
 ﻿using FirebotBackend.APIs.Models;
+using FirebotBackend.Utils.Settings;
 using RestSharp;
 using RestSharp.Authenticators;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FirebotBackend.APIs
 {
-    internal class RedditAuthentificator : AuthenticatorBase
+    public class RedditAuthentificator : AuthenticatorBase
     {
         readonly string _baseUrl;
         readonly string _clientId;
@@ -36,8 +37,11 @@ namespace FirebotBackend.APIs
             };
             using var client = new RestClient(options);
 
-            var request = new RestRequest("oauth2/token")
-                .AddParameter("grant_type", "client_credentials");
+            var request = new RestRequest(Settings.getAccessTokenUrl)
+                .AddParameter("grant_type", "password")
+                .AddParameter("redirect_uri", Settings.redirectUri)
+                .AddParameter("username", Settings.username)
+                .AddParameter("password", "password");
             var response = await client.PostAsync<TokenResponse>(request);
             return $"{response!.TokenType} {response!.AccessToken}";
         }

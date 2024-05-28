@@ -1,4 +1,8 @@
-﻿using System;
+﻿using FirebotBackend.APIs;
+using FirebotBackend.Utils.Settings;
+using RestSharp;
+using RestSharp.Authenticators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +16,17 @@ namespace FirebotBackend.Steps.BaseApiScenarioSteps
         [Given(@"JWT token is valid")]
         public void GivenJWTTokenIsValid()
         {
-            throw new PendingStepException();
+            //todo: prebaci u hookse
+            var auth = new RedditAuthentificator(Settings.baseUrl,Settings.clientId,Settings.clientSecret);
+            IRedditClient redditClient = new RedditClient("", "");
+            redditClient.GetMe();
+            auth.Authenticate();
+
+            var options = new RestClientOptions("https://example.com")
+            {
+                Authenticator = new HttpBasicAuthenticator("username", "password")
+            };
+            var client = new RestClient(options);
         }
 
     }

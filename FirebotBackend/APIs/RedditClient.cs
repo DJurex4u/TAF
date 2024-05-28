@@ -1,4 +1,5 @@
 ﻿using FirebotBackend.APIs.Models;
+using FirebotBackend.Utils.Settings;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -14,20 +15,29 @@ namespace FirebotBackend.APIs
 
         public RedditClient(string apiKey, string apiKeySecret)
         {
-            var options = new RestClientOptions("https://api.twitter.com/2");
+            var options = new RestClientOptions(Settings.getAccessTokenUrl);
             _client = new RestClient(options);
+            _client.AddDefaultHeader()
         }
 
         public async Task<RedditUser> GetUser(string user)
         {
-            var response = await _client.GetJsonAsync<TwitterSingleObject<RedditUser>>(
+            var response = await _client.GetJsonAsync<RedditSingleObject<RedditUser>>(
                 "users/by/username/{user}",
                 new { user }
             );
             return response!.Data;
         }
 
-        record TwitterSingleObject<T>(T Data);
+        public async Task<RedditUser> GetMe()
+        {
+            var response = await _client.GetJsonAsync<RedditSingleObject<RedditUser>>(
+                "api/v1/me"
+            );
+            return response!.Data;
+        }
+
+        record RedditSingleObject<T>(T Data);
 
         public void Dispose()
         {
