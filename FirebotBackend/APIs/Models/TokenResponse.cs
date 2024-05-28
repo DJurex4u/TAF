@@ -10,8 +10,8 @@ namespace FirebotBackend.APIs.Models
     internal record TokenResponse
     {
         [JsonPropertyName("token_type")]
-        public string TokenType { get; init; }
+        public string? TokenType { get; init; }
         [JsonPropertyName("access_token")]
-        public string AccessToken { get; init; }
+        public string? AccessToken { get; init; }
     }
 }

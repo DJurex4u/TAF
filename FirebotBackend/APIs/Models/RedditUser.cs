@@ -2,8 +2,8 @@
 {
     public record RedditUser
     {
-        string id { get; }
-        string name { get; }
-        string username { get; }       
+        string? id { get; }
+        string? name { get; }
+        string? username { get; }       
     }
 }
