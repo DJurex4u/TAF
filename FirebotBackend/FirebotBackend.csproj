@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="APIs\BaseApiTests\**" />
+    <EmbeddedResource Remove="APIs\BaseApiTests\**" />
+    <None Remove="APIs\BaseApiTests\**" />
+    <SpecFlowFeatureFiles Remove="APIs\BaseApiTests\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="APIs\BaseApiTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
@@ -19,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="APIs\BaseApiTests\" />
     <Folder Include="APIs\Models\HomeTimeline\" />
   </ItemGroup>
 

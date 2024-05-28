@@ -3,7 +3,7 @@
 A short summary of the feature
 
 @tag1
-Scenario: [scenario name]
-	Given [context]
-	When [action]
-	Then [outcome]
+Scenario: TC001
+	Given JWT token is valid
+	#When [action]
+	#Then [outcome]
