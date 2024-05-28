@@ -13,13 +13,15 @@ namespace FirebotBackend.APIs
     {
         readonly RestClient _client;
 
-        public RedditClient(string apiKey, string apiKeySecret)
+        public RedditClient()
         {
-            var options = new RestClientOptions(Settings.getAccessTokenUrl);
+            var options = new RestClientOptions(Settings.baseUrl)
+            {
+                Authenticator = new RedditAuthentificator(Settings.getAccessTokenUrl, Settings.clientId, Settings.clientSecret)
+            };
             _client = new RestClient(options);
-            _client.AddDefaultHeader()
         }
-
+             
         public async Task<RedditUser> GetUser(string user)
         {
             var response = await _client.GetJsonAsync<RedditSingleObject<RedditUser>>(
