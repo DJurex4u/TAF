@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace FirebotBackend.APIs
@@ -30,13 +31,23 @@ namespace FirebotBackend.APIs
             );
             return response!.Data;
         }
-
-        public async Task<RedditUser> GetMe()
+        
+        public async Task<JsonNode> GetMe()
         {
-            var response = await _client.GetJsonAsync<RedditSingleObject<RedditUser>>(
-                "api/v1/me"
-            );
-            return response!.Data;
+            //var response = await _client.GetJsonAsync<RedditSingleObject<RedditUser>>(
+            //    "api/v1/me"
+            //);
+            //return response!.Data;
+
+            var request = new RestRequest("api/v1/me");
+
+            var response1 = await _client.ExecuteGetAsync(request);
+            var response2 = await _client.ExecuteGetAsync<JsonNode>(request);
+            //var data = JsonSerializer.Deserialize<JsonNode>(RedditUser.Content!)!;
+
+            // deserialize json string response to JsonNode object
+            //var data = JsonSerializer.Deserialize<JsonNode>(response.Content!)!;
+            return response2.Data!;
         }
 
         record RedditSingleObject<T>(T Data);

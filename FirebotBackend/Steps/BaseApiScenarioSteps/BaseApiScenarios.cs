@@ -13,15 +13,23 @@ using TechTalk.SpecFlow;
 
 namespace FirebotBackend.Steps.BaseApiScenarioSteps
 {
+    [Binding]
     public class BaseApiScenarios
     {
         [Given(@"JWT token is valid")]
-        public void GivenJWTTokenIsValid()
+        public async Task GivenJWTTokenIsValid()
         {
             //todo: prebaci u hookse
-            IRedditClient redditClient = new RedditClient();
-            var me = redditClient.GetMe();
+            IRedditClient redditClient = new RedditClient();            
+            var me = await redditClient.GetMe();
+            string.IsNullOrEmpty(Settings.accessToken);
             Console.WriteLine("heh");
+        }
+
+        [When(@"\[action]")]
+        public void WhenAction()
+        {
+            throw new PendingStepException();
         }
 
     }

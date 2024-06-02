@@ -25,7 +25,10 @@ namespace FirebotBackend.APIs
 
         protected override async ValueTask<Parameter> GetAuthenticationParameter(string accessToken)
         {
-            Token = string.IsNullOrEmpty(Token) ? await GetToken() : Token;
+            Token = Settings.accessToken;
+            
+            //todo:implement getting its own token
+            Token = string.IsNullOrEmpty(Token) ? await GetToken() : Token;            
             return new HeaderParameter(KnownHeaders.Authorization, Token);
         }
 
@@ -36,13 +39,14 @@ namespace FirebotBackend.APIs
                 Authenticator = new HttpBasicAuthenticator(_clientId, _clientSecret),
             };
             using var client = new RestClient(options);
-
             var request = new RestRequest(Settings.getAccessTokenUrl)
                 .AddParameter("grant_type", "password")
                 .AddParameter("redirect_uri", Settings.redirectUri)
                 .AddParameter("username", Settings.username)
                 .AddParameter("password", "password");
             var response = await client.PostAsync<TokenResponse>(request);
+            //Assert.That(response.TokenType, );
+            Console.WriteLine("");
             return $"{response!.TokenType} {response!.AccessToken}";
         }
     }
