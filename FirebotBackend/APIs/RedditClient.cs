@@ -40,7 +40,7 @@ namespace FirebotBackend.APIs
             //return response!.Data;
 
             var request = new RestRequest("api/v1/me");
-
+            request.AddHeader("content-type", "application/x-www-form-urlencoded");
             var response1 = await _client.ExecuteGetAsync(request);
             var response2 = await _client.ExecuteGetAsync<JsonNode>(request);
             //var data = JsonSerializer.Deserialize<JsonNode>(RedditUser.Content!)!;

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace FirebotBackend.APIs
@@ -39,15 +40,17 @@ namespace FirebotBackend.APIs
                 Authenticator = new HttpBasicAuthenticator(_clientId, _clientSecret),
             };
             using var client = new RestClient(options);
-            var request = new RestRequest(Settings.getAccessTokenUrl)
-                .AddParameter("grant_type", "password")
+            var request = new RestRequest(Settings.getAccessTokenUrl);
+                request.AddParameter("grant_type", "password")
                 .AddParameter("redirect_uri", Settings.redirectUri)
                 .AddParameter("username", Settings.username)
-                .AddParameter("password", "password");
-            var response = await client.PostAsync<TokenResponse>(request);
+                .AddParameter("password", Settings.password);
+            //var response = await client.PostAsync<TokenResponse>(request);
+            var response2 = await client.ExecutePostAsync<TokenResponse>(request);
+            //var response3 = await client.ExecutePostAsync<JsonNode>(request);
             //Assert.That(response.TokenType, );
             Console.WriteLine("");
-            return $"{response!.TokenType} {response!.AccessToken}";
+            return $"{response2!.Data.TokenType} {response2!.Data.AccessToken}";
         }
     }
 }
