@@ -32,22 +32,12 @@ namespace FirebotBackend.APIs
             return response!.Data;
         }
         
-        public async Task<JsonNode> GetMe()
-        {
-            //var response = await _client.GetJsonAsync<RedditSingleObject<RedditUser>>(
-            //    "api/v1/me"
-            //);
-            //return response!.Data;
-
-            var request = new RestRequest("api/v1/me");
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
-            var response1 = await _client.ExecuteGetAsync(request);
-            var response2 = await _client.ExecuteGetAsync<JsonNode>(request);
-            //var data = JsonSerializer.Deserialize<JsonNode>(RedditUser.Content!)!;
-
-            // deserialize json string response to JsonNode object
-            //var data = JsonSerializer.Deserialize<JsonNode>(response.Content!)!;
-            return response2.Data!;
+        public async Task<RedditUser> GetMe()
+        {          
+            var request = new RestRequest("api/v1/me");            
+            var response = await _client.ExecuteGetAsync<RedditUser>(request);
+            
+            return response.Data!;
         }
 
         record RedditSingleObject<T>(T Data);

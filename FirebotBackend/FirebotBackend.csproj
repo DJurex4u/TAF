@@ -10,10 +10,15 @@
 
   <ItemGroup>
     <Compile Remove="APIs\BaseApiTests\**" />
+    <Compile Remove="APIs\Models\HomeTimeline\**" />
     <EmbeddedResource Remove="APIs\BaseApiTests\**" />
+    <EmbeddedResource Remove="APIs\Models\HomeTimeline\**" />
     <None Remove="APIs\BaseApiTests\**" />
+    <None Remove="APIs\Models\HomeTimeline\**" />
     <SpecFlowFeatureFiles Remove="APIs\BaseApiTests\**" />
+    <SpecFlowFeatureFiles Remove="APIs\Models\HomeTimeline\**" />
     <SpecFlowObsoleteCodeBehindFiles Remove="APIs\BaseApiTests\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="APIs\Models\HomeTimeline\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,10 +28,6 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
     <PackageReference Include="RestSharp" Version="111.1.0" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="APIs\Models\HomeTimeline\" />
   </ItemGroup>
 
 </Project>
