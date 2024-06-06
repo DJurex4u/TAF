@@ -10,7 +10,7 @@ namespace FirebotBackend.APIs
 {
     internal interface IRedditClient
     {
-        Task<RedditUser> GetUser(string user);
-        Task<RedditUser> GetMe();
+        Task<RedditUserResponse> GetUser(string user);
+        Task<RedditUserResponse> GetMe();
     }
 }

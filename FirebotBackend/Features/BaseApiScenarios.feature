@@ -6,4 +6,4 @@ A short summary of the feature
 Scenario: TC001
 	Given JWT token is valid
 	#When [action]
-	#Then [outcome]
+	Then Reddit user is valid

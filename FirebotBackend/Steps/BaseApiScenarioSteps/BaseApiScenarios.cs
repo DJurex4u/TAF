@@ -21,14 +21,20 @@ namespace FirebotBackend.Steps.BaseApiScenarioSteps
         public async Task GivenJWTTokenIsValid()
         {
             //todo: prebaci Auth u hookse
-            RedditClient = new RedditClient();            
-            var me = await RedditClient.GetMe();
+            RedditClient = new RedditClient();
+            RedditUserResponse = await RedditClient.GetMe();
         }
 
         [When(@"\[action]")]
         public void WhenAction()
         {
             throw new PendingStepException();
+        }
+
+        [Then(@"Reddit user is valid")]
+        public void ThenRedditUserIsValid()
+        {
+            RedditUserResponse.
         }
 
     }
