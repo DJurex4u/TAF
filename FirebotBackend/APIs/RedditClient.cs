@@ -23,19 +23,19 @@ namespace FirebotBackend.APIs
             _client = new RestClient(options);
         }
              
-        public async Task<RedditUserResponse> GetUser(string user)
+        public async Task<RedditUserResponseModel> GetUser(string user)
         {
-            var response = await _client.GetJsonAsync<RedditSingleObject<RedditUserResponse>>(
+            var response = await _client.GetJsonAsync<RedditSingleObject<RedditUserResponseModel>>(
                 "users/by/username/{user}",
                 new { user }
             );
             return response!.Data;
         }
         
-        public async Task<RedditUserResponse> GetMe()
+        public async Task<RedditUserResponseModel> GetMe()
         {          
             var request = new RestRequest("api/v1/me");            
-            var response = await _client.ExecuteGetAsync<RedditUserResponse>(request);
+            var response = await _client.ExecuteGetAsync<RedditUserResponseModel>(request);
             
             return response.Data!;
         }

@@ -46,7 +46,7 @@ namespace FirebotBackend.APIs
                 .AddParameter("username", Settings.username)
                 .AddParameter("password", Settings.password);
             //var response = await client.PostAsync<TokenResponse>(request);
-            var response2 = await client.ExecutePostAsync<TokenResponse>(request);
+            var response2 = await client.ExecutePostAsync<TokenResponseModel>(request);
             //var response3 = await client.ExecutePostAsync<JsonNode>(request);
             //Assert.That(response.TokenType, );
             Console.WriteLine("");

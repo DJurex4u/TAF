@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FirebotBackend.APIs.Models
 {
-    internal record TokenResponse
+    internal record TokenResponseModel : ResponseModel
     {
         [JsonPropertyName("token_type")]
         public string? TokenType { get; init; }

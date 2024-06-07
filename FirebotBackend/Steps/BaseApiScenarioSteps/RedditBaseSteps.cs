@@ -11,6 +11,6 @@ namespace FirebotBackend.Steps.BaseApiScenarioSteps
     internal class RedditBaseSteps
     {
         protected IRedditClient? RedditClient;
-        protected RedditUserResponse? RedditUserResponse;
+        protected RedditUserResponseModel? RedditUserResponse;
     }
 }
