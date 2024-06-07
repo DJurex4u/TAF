@@ -18,14 +18,14 @@ namespace FirebotBackend.Steps
             Model = model;
         }
 
-        [Then(@"Reddit user is valid")]
+        //[Then(@"Reddit user is valid")]
         
         protected override async Task ValidateRequestAsync()
         {
             //todo: mkožda naslijediti assert pa se zajj AssertBase
-            RedditClient = ClientProvider.GetRedditClientInstance();
-            RedditUserResponse = await RedditClient.GetMe();
-            Assert.That(Model, Is.Not.Null);
+            //this.RedditClient = ClientProvider.GetRedditClientInstance();
+            //RedditUserResponse = await RedditClient.GetMe();
+            //Assert.That(Model, Is.Not.Null);
         }
     }
 }

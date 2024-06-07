@@ -1,4 +1,5 @@
 ﻿using FirebotBackend.APIs.Models;
+using FirebotBackend.Steps.BaseApiScenarioSteps;
 using FirebotBackend.Utils.Settings;
 using RestSharp;
 using System;
@@ -32,11 +33,12 @@ namespace FirebotBackend.APIs
             return response!.Data;
         }
         
-        public async Task<RedditUserResponseModel> GetMe()
+        public async Task<RedditUserResponseModel> GetMe(RedditBaseSteps steps)
         {          
             var request = new RestRequest("api/v1/me");            
             var response = await _client.ExecuteGetAsync<RedditUserResponseModel>(request);
-            
+            steps.Response = response;
+
             return response.Data!;
         }
 

@@ -22,7 +22,22 @@ namespace FirebotBackend.Steps.BaseApiScenarioSteps
         {
             //todo: prebaci Auth u hookse            
             RedditClient = ClientProvider.GetRedditClientInstance();
-            RedditUserResponse = await RedditClient.GetMe();
+            RedditUserResponse = await RedditClient.GetMe(this);
+
+            if (Response == null)
+            {
+                throw new Exception("Response is null");
+            }
+
+            if (!Response.IsSuccessful)
+            {
+                throw new Exception($"Response in not succesful. Response code is: {Response.StatusCode}");
+            }
+
+            if (RedditUserResponse == null)
+            {
+                throw new Exception("RedditUserResponse is null");
+            }
         }
     }
 }
