@@ -2,7 +2,7 @@
 
 namespace FirebotBackend.APIs.Models
 {
-    public record RedditUserResponseModel : ResponseModel
+    public record RedditUserResponseModel : IResponseModel
     {        
         public string? id { get; init; }
         

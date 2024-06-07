@@ -19,8 +19,7 @@ namespace FirebotBackend.Steps.BaseApiScenarioSteps
 
         [Given(@"JWT token is valid")]
         public async Task GivenJWTTokenIsValid()
-        {
-            //todo: prebaci Auth u hookse            
+        {         
             RedditClient = ClientProvider.GetRedditClientInstance();
             RedditUserResponse = await RedditClient.GetMe(this);
 

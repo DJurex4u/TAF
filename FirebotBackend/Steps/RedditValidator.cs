@@ -14,13 +14,29 @@ namespace FirebotBackend.Steps
     [Binding]
     public class RedditValidator : ValidatorBase
     {
-        public RedditValidator(RedditUserResponseModel model) : base(model) { }
+        RedditUserResponseModel Model { get; set; }
+        public RedditValidator(RedditUserResponseModel model) => Model = model;
         protected override void ValidateRedditUserResponse()
-        {  
-            foreach (PropertyInfo propertyInfo in Model.GetType().GetProperties())
+        {
+            try
             {
-                Assert.That(propertyInfo, Is.Not.Null);
+                Assert.That(Model.id, Is.Not.Null);
+                Assert.That(Model.name, Is.Not.Null);
+                Assert.That(Model.isEmployee, Is.Not.Null);
+                Assert.That(Model.oauthClientId, Is.Not.Null);
+                Assert.That(Model.subreddit, Is.Not.Null);
+                Assert.That(Model.subreddit?.url, Is.Not.Null);
+
+                Assert.That(Model.id, Is.EqualTo("n6xmmoiz"));
+                Assert.That(Model.name, Is.EqualTo("myDummyAcc2"));
+                Assert.That(Model.isEmployee, Is.EqualTo(false));
+                Assert.That(Model.oauthClientId, Is.EqualTo("O6D12dw2USZ2qTP3jFOAkg"));
+                Assert.That(Model.subreddit?.url, Is.EqualTo("/user/myDummyAcc2/"));
             }
+            catch (Exception)
+            {
+                throw;
+            }                  
         }
     }
 }
