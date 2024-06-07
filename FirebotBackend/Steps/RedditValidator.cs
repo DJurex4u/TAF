@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
@@ -13,19 +14,13 @@ namespace FirebotBackend.Steps
     [Binding]
     public class RedditValidator : ValidatorBase
     {
-        public RedditValidator(RedditUserResponseModel model)
-        {
-            Model = model;
-        }
-
-        //[Then(@"Reddit user is valid")]
-        
-        protected override async Task ValidateRequestAsync()
-        {
-            //todo: mkožda naslijediti assert pa se zajj AssertBase
-            //this.RedditClient = ClientProvider.GetRedditClientInstance();
-            //RedditUserResponse = await RedditClient.GetMe();
-            //Assert.That(Model, Is.Not.Null);
+        public RedditValidator(RedditUserResponseModel model) : base(model) { }
+        protected override void ValidateRedditUserResponse()
+        {  
+            foreach (PropertyInfo propertyInfo in Model.GetType().GetProperties())
+            {
+                Assert.That(propertyInfo, Is.Not.Null);
+            }
         }
     }
 }

@@ -3,8 +3,7 @@
 namespace FirebotBackend.APIs.Models
 {
     public record RedditUserResponseModel : ResponseModel
-    {
-        
+    {        
         public string? id { get; init; }
         
         public string? name { get; init; }

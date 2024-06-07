@@ -31,13 +31,16 @@ namespace FirebotBackend.Steps.BaseApiScenarioSteps
 
             if (!Response.IsSuccessful)
             {
-                throw new Exception($"Response in not succesful. Response code is: {Response.StatusCode}");
+                throw new Exception($"Response in not succesful. Response code is: {(int)Response.StatusCode} ({Response.StatusCode})\n");
             }
 
             if (RedditUserResponse == null)
             {
                 throw new Exception("RedditUserResponse is null");
             }
+
+            IValidator validator = new RedditValidator(RedditUserResponse);
+            validator.Validate();
         }
     }
 }

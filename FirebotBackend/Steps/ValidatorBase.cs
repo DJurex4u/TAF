@@ -12,12 +12,17 @@ namespace FirebotBackend.Steps
 {
     public abstract class ValidatorBase : IValidator
     {
-        protected ResponseModel? Model { get; set; }
+        protected ResponseModel Model { get; set; }
 
-        protected abstract Task ValidateRequestAsync();
+        protected ValidatorBase(ResponseModel model)
+        {
+            Model = model;
+        }
+
+        protected abstract void ValidateRedditUserResponse();
         public void Validate()
         {
-            ValidateRequestAsync();
+            ValidateRedditUserResponse();
         }
     }
 }
